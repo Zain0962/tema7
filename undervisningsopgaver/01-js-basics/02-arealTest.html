@@ -14,6 +14,21 @@
         let længde = 3;
         let bredde = 5;
         let areal = længde * bredde;
+        //hvis arealet er under 100 = arealet er for lille//
+        if (areal < 100) {
+            let resultat = "Arealet er for lille";
+        }
+
+        //hvis arealet er mellem 100-200 = arealet er ok//
+        if (areal >= 100 && < 200) {
+            let resultat = "Arealet er ok";
+        }
+
+        //hvis arealet er større end 200 = arealet er for stort//
+        if (areal >= 200) {
+            let resultat = "Arealet er for stort";
+        }
+
 
         let resultat = 'Længden er ${længde} meter og bredden er ${bredde} meter. Arealet er ${areal} kvadratmeter';
 
