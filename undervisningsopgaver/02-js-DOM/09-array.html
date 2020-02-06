@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ol id="display"></ol>
+
+
+    <script>
+        let playliste = ["Pretty Little Fears", "Deja Vu", "Playing Games", "Too Fast", "Hussle n Motivate", "Last Time That I Checd'd", "The Message", "x-Factor", "King Kunta", "BAM", ];
+
+        playliste.forEach(song => {
+            let element = document.createElement("li");
+            let mySong = document.createTextNode(song);
+
+            element.appendChild(mySong);
+
+            document.querySelector("#display").appendChild(element);
+        })
+    </script>
+</body></html>
