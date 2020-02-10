@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>object</title>
+</head>
+
+<style>
+    .object {
+        border-style: solid;
+        border-color: black;
+        margin: 5px;
+    }
+
+</style>
+
+<body>
+    <section class="data-container"></section>
+
+    <template>
+        <article class="object">
+            <h2></h2>
+            <img src="" alt="">
+            <h3></h3>
+            <p></p>
+        </article>
+    </template>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", visObjects);
+
+        let objects = [{
+                "navn": "frø",
+                "type": "amfibie",
+                "levested": "søer",
+                "billede": "http://mabe-kea.dk/E19/pics/frog.png"
+            }, {
+                "navn": "gris",
+                "type": "pattedyr",
+                "levested": "svinefarme",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png"
+            },
+
+            {
+                "navn": "ræv",
+                "type": "pattedyr",
+                "levested": "skov",
+                "billede": "http://mabe-kea.dk/E19/pics/fox.png"
+            },
+
+            {
+                "navn": "sild",
+                "type": "fisk",
+                "levested": "hav",
+                "billede": "http://mabe-kea.dk/E19/pics/sild.jpg"
+            },
+            {
+                "navn": "krokodille",
+                "type": "krybdyr",
+                "levested": "sump",
+                "billede": "http://mabe-kea.dk/E19/pics/kroko.jpg"
+            }
+
+        ];
+
+        function visObjects() {
+
+            const container = document.querySelector(".data-container");
+            const objectTemplate = document.querySelector("template");
+
+            objects.forEach(object => {
+                let klon = objectTemplate.cloneNode(true).content;
+                klon.querySelector("h2").textContent = object.navn;
+                klon.querySelector("img").src = object.billede;
+                klon.querySelector("h3").textContent = object.type;
+                klon.querySelector("p").textContent = object.levested;
+                container.appendChild(klon);
+
+
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>
