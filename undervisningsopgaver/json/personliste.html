@@ -103,7 +103,7 @@
             const template = document.querySelector("template");
             container.textContent = "";
             personer.feed.entry.forEach(person => {
-                if (person.gsx$sex.$t == filter || filter == "alle") { // tjek hvilket køn personen har og sammenlign med filter eller vis alle
+                if (person.gsx$sex.$t == filter || filter == "alle") {
                     let klon = template.cloneNode(true).content;
                     klon.querySelector("h2").textContent = person.gsx$navn.$t;
                     klon.querySelector("h2").textContent += " " + person.gsx$efternavn.$t;
@@ -112,7 +112,6 @@
                     klon.querySelector(".alder").textContent += person.gsx$alder.$t;
                     klon.querySelector(".religion").textContent += person.gsx$religion.$t;
                     klon.querySelector(".person").addEventListener("click", () => {
-                        //visDetalje(person);
                         location.href = "detalje.html?id=" + person.gsx$id.$t;
                     });
                     container.appendChild(klon);
@@ -120,12 +119,12 @@
             });
         }
 
-        // funktion der filtrerer personer (json)
+
         function filtrerPersoner() {
-            filter = this.dataset.køn; // sæt variabel "filter" til aktuel værdi
-            document.querySelector(".valgt").classList.remove("valgt"); // fjern klassen valgt fra aktuel knap
-            this.classList.add("valgt") // marker den nyvalgte knap
-            visPersoner(); // kald funktionen vis igen med nyt filter
+            filter = this.dataset.køn;
+            document.querySelector(".valgt").classList.remove("valgt");
+            this.classList.add("valgt")
+            visPersoner();
         }
 
     </script>
