@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap" rel="stylesheet">
+
+
+    <style>
+        .data-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 2rem;
+            padding: 0 10vw;
+        }
+
+        @font-face {
+            font-family: 'photograph_signatureregular';
+            src: url('photograph_signature-webfont.woff2') format('woff2'),
+                url('photograph_signature-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        header {
+            font-family: 'photograph_signatureregular';
+            font-size: 5rem;
+            text-align: center;
+            color: white;
+            background-color: black;
+        }
+
+
+
+
+        h1 {
+            margin-bottom: 0.5rem;
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            font-size: 3rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+
+            justify-content: center;
+            margin-bottom: 2rem;
+
+        }
+
+        @media screen and (min-width: 600px) {
+            nav {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+        }
+
+        button {
+            font-family: 'Raleway', sans-serif;
+            color: white;
+            background-color: coral;
+            border-radius: 20px 8px;
+            margin: 0.2rem 10rem 0.2rem 10rem;
+            font-size: 1.3rem;
+
+            padding: 0.4rem;
+            cursor: pointer;
+        }
+
+        @media screen and (min-width: 600px) {
+            button {
+                font-family: 'Raleway', sans-serif;
+                color: white;
+                background-color: coral;
+                border-radius: 20px 8px;
+                margin: 0.3rem;
+                font-size: 1.3rem;
+
+                padding: 0.4rem;
+                cursor: pointer;
+            }
+        }
+
+        button:hover {
+            transform: scale(1.2);
+        }
+
+        .valgt {
+            background-color: black;
+        }
+
+        .ret {
+            border: 3px solid coral;
+            border-radius: 50px 5px;
+            padding: 3vw;
+            cursor: pointer;
+        }
+
+        img {
+            width: 100%;
+            height 60%;
+            object-fit: contain;
+        }
+
+        .ret h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .ret p {
+            font-family: 'Raleway', sans-serif;
+        }
+
+
+
+        #popup {
+            overflow: scroll;
+            position: fixed;
+            width: 100vw;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            z-index: 10;
+            left: 0;
+            top: 0;
+        }
+
+        #ret-popup {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            justify-content: center;
+
+            margin: 2rem;
+            padding: 2rem;
+            background-color: white;
+
+        }
+
+        .ret-beskrivelse {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            flex-basis: 50%;
+            flex-grow: 1;
+            padding-left: 15px;
+        }
+
+        .ret-popup img {
+            margin-right: 1rem;
+        }
+
+        @media screen and(min-width:600px) {
+            .ret-popup img {
+                padding: 5rem;
+            }
+        }
+
+        #popup button {
+            position: absolute;
+            top: 0;
+            font-size: 1rem;
+            background-color: black;
+            ;
+            cursor: pointer;
+        }
+
+        .valgt {
+            opacity: 50%;
+            color: black;
+            background: white
+        }
+
+        .skjul {
+            display: none;
+        }
+
+        #popup button:focus {
+            outline: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="popup" class="skjul">
+        <article id="ret-popup">
+            <button id="tilbage">Tilbage</button>
+            <img src="" alt="">
+            <div class="ret-beskrivelse">
+                <h2></h2>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+
+        </article>
+    </section>
+
+    <header>Bistro Babushka</header>
+
+    <h1>MENU</h1>
+    <nav>
+        <button class="filter valgt" data-kategori="alle" class="valgt">Alle</button>
+        <button class="filter" data-kategori="forretter">Forretter</button>
+        <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+        <button class="filter" data-kategori="desserter">Desserter</button>
+        <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+    </nav>
+
+
+    <section class="data-container"></section>
+
+
+
+    <template>
+        <article id="" class="ret">
+            <h2></h2>
+            <img src="" alt="">
+            <p class="kort"> </p>
+            <p class="pris">Pris: </p>
+        </article>
+    </template>
+
+
+    <script>
+        const idSheet = "17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0";
+        const endpoint = `https://spreadsheets.google.com/feeds/list/${idSheet}/od6/public/values?alt=json`;
+
+
+        let retter = [];
+        let knapFilter = document.querySelectorAll(".filter");
+        let filter = "alle";
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+            loadData();
+
+            knapFilter.forEach(knap => {
+                knap.addEventListener("click", filtrerRetter)
+            });
+        }
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            retter = await response.json();
+            console.log(retter);
+            visRetter();
+        }
+
+
+        function filtrerRetter() {
+            knapFilter.forEach(knap => {
+                knap.classList.remove("valgt");
+            });
+
+            this.classList.add("valgt");
+            kategori = this.dataset.kategori;
+            console.log(kategori);
+            visRetter();
+        }
+
+
+        function visRetter() {
+            let container = document.querySelector(".data-container");
+            let template = document.querySelector("template");
+            let article = document.querySelector("article");
+
+            container.innerHTML = "";
+
+            retter.feed.entry.forEach(ret => {
+                if (kategori == "alle" || ret.gsx$kategori.$t == kategori) {
+                    let klon = template.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = ret.gsx$navn.$t;
+                    klon.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector(".kort").textContent += ret.gsx$kort.$t;
+                    klon.querySelector(".pris").textContent += ret.gsx$pris.$t;
+
+                    klon.querySelector(".ret").addEventListener("click", () => {
+                        visPopup(ret);
+                    });
+
+                    container.appendChild(klon);
+                }
+            });
+        }
+
+
+        function visPopup(ret) {
+            popup.classList.remove("skjul");
+            popup.querySelector("#tilbage").addEventListener("click", () => {
+                popup.classList.add("skjul");
+            });
+
+            popup.querySelector("h2").textContent = ret.gsx$navn.$t;
+            popup.querySelector("p + p").textContent = "Kategori: " + ret.gsx$kategori.$t;
+            popup.querySelector("p + p + p").textContent = ret.gsx$lang.$t;
+            popup.querySelector("p:last-child").textContent = ret.gsx$pris.$t;
+            popup.querySelector("img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+        }
+    </script>
+</body></html>
